@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CleanArchitecture.Core.Entities.User>
+﻿@model IEnumerable<CleanArchitecture.Core.Entities.Customer>
 
 @{
     ViewData["Title"] = "Lista de Clientes Cadastrados";
@@ -6,27 +6,31 @@
 }
 
 <div class="row">
+    <div class="col-lg-3"></div>
     <div class="col-md-6 text-center">
         <h2>Lista de Usuários</h2>
         @foreach (var user in Model)
         {
-        <div class="row bordered-box">
-            <h1>@user.Name</h1>
-            <ul>
-                <li>ID: @user.Id</li>
-                <li>Organização: @user.Org_Name</li>
-                @if(user.Email != null)
-                {
-                    @foreach (var mail in user.Email)
+            <div class="row bordered-box">
+                <h1>@user.Name</h1>
+                <ul>
+                    <li>ID: @user.Id</li>
+                    <li>Organização: @user.Org_Name</li>
+                    @if (user.Email != null)
                     {
-                        <li>E-mail: @mail.Value</li>
+                        @foreach (var mail in user.Email)
+                        {
+                            <li>E-mail: @mail.Value</li>
+                        }
                     }
-                }
-            </ul>
+                </ul>
+                <hr />
+                <p>@user.Description</p>
+                <a class="btn btn-primary" href="./@user.Id/edit">Editar</a>
+            </div>
             <hr />
-            <p>@user.Description</p>
-        </div>
         }
         <a class="btn btn-primary" asp-controller="Users" asp-action="New">Cadastrar Novo Cliente</a>
     </div>
+    <div class="col-lg-3"></div>
 </div>

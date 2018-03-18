@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace CleanArchitecture.Core.Entities
 {
-    public class User : BaseEntity
+    public class Customer : BaseEntity
     {
         public string Name { get; set; }
         public List<LabeledProperty> Email { get; set; }

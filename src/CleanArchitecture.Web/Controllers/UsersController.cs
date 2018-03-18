@@ -12,16 +12,16 @@ namespace CleanArchitecture.Web.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IRepository<User> UserRepository;
+        private readonly IRepository<Customer> CustomerRepository;
 
-        public UsersController(IRepository<User> userRepository)
+        public UsersController(IRepository<Customer> customerRepository)
         {
-            this.UserRepository = userRepository;
+            this.CustomerRepository = customerRepository;
         }
 
         public IActionResult Index()
         {
-            return View(UserRepository.List());
+            return View(CustomerRepository.List());
         }
 
         [HttpGet]
@@ -37,18 +37,18 @@ namespace CleanArchitecture.Web.Controllers
             client.BaseAddress = new Uri(@"https://api.pipedrive.com/v1/");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-            //Solicita informação do usuario pela API do Pipedrive
+            //Solicita informação do cliente pela API do Pipedrive
             var response = await client.GetAsync(@"persons/" + UserId + "?api_token=d8d2a00812cc811a940723a62fa28835a253901b");
 
             if (response.IsSuccessStatusCode)
             {
                 string content = response.Content.ReadAsStringAsync().Result;
 
-                User user = JsonConvert.DeserializeAnonymousType(content, new { Data = new User() }).Data;
+                Customer customer = JsonConvert.DeserializeAnonymousType(content, new { Data = new Customer() }).Data;
 
                 //Adiciona cliente ao DB se já não existir
-                if (user != null && UserRepository.GetById(user.Id) == null)
-                    UserRepository.Add(user);
+                if (customer != null && CustomerRepository.GetById(customer.Id) == null)
+                    CustomerRepository.Add(customer);
                 else
                     return View("Error");
 
@@ -58,17 +58,23 @@ namespace CleanArchitecture.Web.Controllers
             return View("Error");
         }
 
-        [HttpGet("{id}/edit")]
+        [HttpGet("Users/{id}/edit")]
         public IActionResult Edit(int id)
         {
-            User user = UserRepository.GetById(id);
+            Customer user = CustomerRepository.GetById(id);
 
             if (user == null)
                 return View("Error");
 
+            return View("Edit", user);
+        }
+
+        [HttpPut("Users/{id}")]
+        public IActionResult Update(Customer user)
+        {
 
 
-            return null;
+            return Redirect(@"/Users");
         }
     }
 }

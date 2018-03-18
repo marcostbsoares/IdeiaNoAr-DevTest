@@ -17,7 +17,7 @@ namespace CleanArchitecture.Infrastructure.Data
         }
 
         //public DbSet<ToDoItem> ToDoItems { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
 
         public override int SaveChanges()
