@@ -1,41 +1,55 @@
 ﻿@model CleanArchitecture.Core.Entities.Customer
+
 @{
-    string check = Model.Active_Flag ? "checked" : "";
+    
 }
 
+<h4>Editar Cliente</h4>
+<hr />
 <div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6 bordered-box">
-        <form action="./" method="put">
-            <div class="form-group-lg">
-                <label>ID</label>
-                <input class="form-control" type="number" disabled value="@Model.Id"/>
+    <div class="col-md-6 bordered-box">
+        <form asp-controller="Users" asp-action="Update" asp-route-id="@Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" disabled />
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
-            <div class="form-group-lg">
-                <label for="Name">Nome</label>
-                <input class="form-control" type="text" value="@Model.Name" name="Name" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-                  <div class="form-group-lg">
-                      <label for="Org_Name">Organização:</label>
-                      <input type="text" class="form-control" value="@Model.Org_Name" name="Org_Name" />
-                  </div>
-            <div class="form-group-lg">
-                <label for="Company_Id">Id da Organização</label>
-                <input type="number" class="form-control" value="@Model.Company_Id" name="Company_Id" />
+            <div class="form-group">
+                <label asp-for="Company_Id" class="control-label"></label>
+                <input asp-for="Company_Id" class="form-control" />
+                <span asp-validation-for="Company_Id" class="text-danger"></span>
             </div>
-            <div class="form-group-lg">
-                <label for="Description">Descrição</label>
-                <textarea class="form-control" name="Description" style="resize:vertical" onclick='this.style.height = "";this.style.height = this.scrollHeight + "px"'>@Model.Description</textarea>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group-lg">
-                <label for="Active_Flag">Ativo</label>
-                <input class="form-control checkbox-inline" style="max-width:64px" type="checkbox" name="Active_Flag" @check />
+            <div class="form-group">
+                <label asp-for="Org_Name" class="control-label"></label>
+                <input asp-for="Org_Name" class="form-control" />
+                <span asp-validation-for="Org_Name" class="text-danger"></span>
             </div>
-            <hr />
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Active_Flag" /> @Html.DisplayNameFor(model => model.Active_Flag)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>
-    <div class="col-lg-3"></div>
+</div>
+
+<div>
+    <br />
+    <button class="btn btn-primary" asp-action="Index">Voltar</button>
 </div>

@@ -69,10 +69,16 @@ namespace CleanArchitecture.Web.Controllers
             return View("Edit", user);
         }
 
-        [HttpPut("Users/{id}")]
-        public IActionResult Update(Customer user)
+        [HttpPost("Users/{id}/update")]
+        public IActionResult Update(Customer cust)
         {
+            if(cust != null)
+            {
+                //var repoCustomer = CustomerRepository.GetById(cust.Id);
+                CustomerRepository.Update(cust);
 
+                //CustomerRepository.Update(cust);
+            }
 
             return Redirect(@"/Users");
         }
