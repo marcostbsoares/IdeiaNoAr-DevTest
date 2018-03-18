@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
 /* Wrapping element */
@@ -35,4 +36,13 @@ textarea {
   .carousel-caption {
     display: none
   }
+}
+
+.bordered-box {
+    margin-top: 8px;
+    border: 2px solid rgba(0,0,0,128);
+    border-radius: 10px;
+    background-color: #B7D1DA;
+    padding-left: 10px;
+    padding-right: 10px;
 }
