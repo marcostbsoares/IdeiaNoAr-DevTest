@@ -5,10 +5,12 @@ using System.Text;
 
 namespace CleanArchitecture.Core.Entities
 {
-    class Organization : BaseEntity
+    public class Organization : BaseEntity
     {
+        public int CompanyId { get; set; }
         public User Owner { get; set; }
-        public string Name { get; set; }
 
+        public string Name { get; set; }
+        public string Address { get; set; }
     }
 }

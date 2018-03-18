@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CleanArchitecture.Core.Events;
+using CleanArchitecture.Core;
 using CleanArchitecture.Core.SharedKernel;
+using Newtonsoft.Json;
 
 namespace CleanArchitecture.Core.Entities
 {
-    class User : BaseEntity
+    public class User : BaseEntity
     {
         public string Name { get; set; }
-        public string Email { get; set; }
-        public bool HasPic { get; set; }
-        public string PicHash { get; set; }
-        public bool ActiveFlag { get; set; }
-        public int Value { get; set; }
+        public List<LabeledProperty> Email { get; set; }
+        public List<LabeledProperty> Phone { get; set; }
+        public int Company_Id { get; set; }
+
+        [JsonProperty("15113600d066921ff8f99cc022a2084946df529c")]
+        public string Description { get; set; }
+
+        public string Org_Name { get; set; }
+        public bool Active_Flag { get; set; }
+    }
+
+    public class LabeledProperty : BaseEntity
+    {
+        public string Label { get; set; }
+        public string Value { get; set; }
+        public bool Primary { get; set; }
     }
 }
-
-
-    //"owner_id": {
-    //  "id": 4244175,
-    //  "name": "Phillippe Santana",
-    //  "email": "ps@ideianoar.com.br",
-    //  "has_pic": false,
-    //  "pic_hash": null,
-    //  "active_flag": true,
-    //  "value": 4244175
-    //},
