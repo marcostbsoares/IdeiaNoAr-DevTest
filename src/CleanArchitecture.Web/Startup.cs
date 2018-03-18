@@ -68,7 +68,7 @@ namespace CleanArchitecture.Web
             ILoggerFactory loggerFactory)
         {
             this.Configure(app, env, loggerFactory);
-            SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
+            //SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
         }
 
 
