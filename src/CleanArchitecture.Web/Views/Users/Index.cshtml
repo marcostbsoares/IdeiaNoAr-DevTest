@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CleanArchitecture.Core.Entities.User>
+
+@{
+    ViewData["Title"] = "Lista de Clientes Cadastrados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h2>Lista de Usuários</h2>
+        @foreach (var user in Model)
+        {
+        <div class="row bordered-box">
+            <h1>@user.Name</h1>
+            <ul>
+                <li>ID: @user.Id</li>
+                <li>Organização: @user.Org_Name</li>
+                @if(user.Email != null)
+                {
+                    @foreach (var mail in user.Email)
+                    {
+                        <li>E-mail: @mail.Value</li>
+                    }
+                }
+            </ul>
+            <hr />
+            <p>@user.Description</p>
+        </div>
+        }
+        <a class="btn btn-primary" asp-controller="Users" asp-action="New">Cadastrar Novo Cliente</a>
+    </div>
+</div>
