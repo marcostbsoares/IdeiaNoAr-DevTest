@@ -19,17 +19,31 @@ namespace CleanArchitecture.Web.Controllers
             this.CustomerRepository = customerRepository;
         }
 
+        /// <summary>
+        /// Lista todos os Clientes
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View(CustomerRepository.List());
         }
 
+        /// <summary>
+        /// Rota para tela de cadastrar um novo cliente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult New()
         {
             return View("New");
         }
 
+        /// <summary>
+        /// Rota interna que processa um request POST para inserir um novo cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> New(int id, [Bind("Id")] int UserId)
         {
@@ -50,7 +64,7 @@ namespace CleanArchitecture.Web.Controllers
                 if (customer != null && CustomerRepository.GetById(customer.Id) == null)
                     CustomerRepository.Add(customer);
                 else
-                    return View("Error");
+                    return View("Error", "Cliente já registrado no banco de dados"); //Retorna um erro caso o cliente já esteja registrado
 
                 return Redirect(@"/Users");
             }
@@ -64,7 +78,7 @@ namespace CleanArchitecture.Web.Controllers
             Customer user = CustomerRepository.GetById(id);
 
             if (user == null)
-                return View("Error");
+                return View("Error", "Usuario não Encontrado");
 
             return View("Edit", user);
         }
@@ -74,11 +88,27 @@ namespace CleanArchitecture.Web.Controllers
         {
             if(cust != null)
             {
-                //var repoCustomer = CustomerRepository.GetById(cust.Id);
                 CustomerRepository.Update(cust);
-
-                //CustomerRepository.Update(cust);
             }
+
+            return Redirect(@"/Users");
+        }
+
+        [HttpGet("Users/{id}/delete")]
+        public IActionResult Delete(int id)
+        {
+            Customer customer = CustomerRepository.GetById(id);
+
+            if (customer != null)
+                return View("Delete", customer);
+            else
+                return View("Error", "Cliente inválido");
+        }
+
+        [HttpPost("Users/{id}/delete")]
+        public IActionResult ConfirmDelete(int id)
+        {
+            CustomerRepository.Delete(CustomerRepository.GetById(id));
 
             return Redirect(@"/Users");
         }
