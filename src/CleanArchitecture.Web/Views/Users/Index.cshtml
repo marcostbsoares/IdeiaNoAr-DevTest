@@ -16,6 +16,8 @@
                 <ul>
                     <li>ID: @user.Id</li>
                     <li>Organização: @user.Org_Name</li>
+                    <li>ID da Organização: @user.Company_Id</li>
+                    <li>Ativo:@(user.Active_Flag ? "Sim" : "Não")</li>
                     @if (user.Email != null)
                     {
                         @foreach (var mail in user.Email)
@@ -23,10 +25,21 @@
                             <li>E-mail: @mail.Value</li>
                         }
                     }
+                    @if (user.Phone != null)
+                    {
+                        @foreach (var phone in user.Phone)
+                        {
+                            <li>Telefone: @phone.Value</li>
+                        }
+                    }
                 </ul>
                 <hr />
                 <p>@user.Description</p>
-                <a class="btn btn-primary" href="./Users/@user.Id/edit">Editar</a>
+                <div class="text-center">
+                    <a class="btn btn-primary" href="./Users/@user.Id/edit">Editar</a>
+                    <a class="btn btn-danger" href="./Users/@user.Id/delete">Excluir</a>
+                </div>
+                <br />
             </div>
             <hr />
         }
