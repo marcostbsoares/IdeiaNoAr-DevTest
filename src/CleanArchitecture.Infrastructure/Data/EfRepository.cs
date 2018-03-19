@@ -17,12 +17,26 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public T GetById(int id)
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            try
+            {
+                return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public List<T> List()
         {
-            return _dbContext.Set<T>().ToList();
+            try
+            {
+                return _dbContext.Set<T>().ToList();
+            }
+            catch
+            {
+                return new List<T>();
+            }
         }
 
         public T Add(T entity)
